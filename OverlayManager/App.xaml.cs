@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverlayManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,13 @@ namespace OverlayManager
     /// </summary>
     public partial class App : Application
     {
+        private readonly Match _match;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _match = new Match();
+
+            base.OnStartup(e);
+        }
+
     }
 }
