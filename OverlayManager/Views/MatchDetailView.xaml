@@ -12,25 +12,37 @@
                    Margin="0 50 0 0"
                    Text="Game Details"/>
         <TextBlock HorizontalAlignment="Center"
+                   FontSize="22"
+                   Text="{Binding GameSelected}"/>
+
+        <TextBlock HorizontalAlignment="Center"
                    Margin="0 35 0 15"
                    FontSize="20"
-                   Text="Best of:"/>
+                   Text="{Binding SeriesLength, UpdateSourceTrigger=PropertyChanged}"/>
 
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Content="1"
                     Margin="5"
-                    Padding="5"/>
+                    Padding="5"
+                    Command="{Binding SeriesLengthCommand}"
+                    CommandParameter="1"/>
             <Button Content="3"
                     Margin="5"
-                    Padding="5"/>
+                    Padding="5"
+                    Command="{Binding SeriesLengthCommand}"
+                    CommandParameter="3"/>
             <Button Content="5"
                     Margin="5"
-                    Padding="5"/>
+                    Padding="5"
+                    Command="{Binding SeriesLengthCommand}"
+                    CommandParameter="5"/>
             <Button Content="7"
                     Margin="5"
-                    Padding="5"/>
-        </StackPanel>                    
+                    Padding="5"
+                    Command="{Binding SeriesLengthCommand}"
+                    CommandParameter="7"/>
+        </StackPanel>
 
         <Grid HorizontalAlignment="Center" 
               Width="250"
@@ -55,7 +67,8 @@
                        Text="Name:"/>
 
             <TextBox Grid.Row="1"
-                     Grid.Column="1"/>
+                     Grid.Column="1"
+                     Text="{Binding Team1Name, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             <TextBlock Grid.Row="2" 
@@ -67,17 +80,22 @@
                        Text="Name:"/>
 
             <TextBox Grid.Row="3"
-                     Grid.Column="1"/>
+                     Grid.Column="1"
+                     Text="{Binding Team2Name, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Margin="5 0" 
                     Padding="5" 
-                    Content="Submit"/>
+                    Content="Submit"
+                    Command="{Binding SubmitCommand}"/>
             <Button Margin="5 0" 
                     Padding="5" 
-                    Content="Cancel"/>
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"/>
         </StackPanel>
+        <TextBlock Text="{Binding MT1N, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="{Binding MT2N, UpdateSourceTrigger=PropertyChanged}"/>
     </StackPanel>
 </UserControl>

@@ -28,21 +28,29 @@
                 Width="200"
                 Height="75"
                 Margin="0 50 0 0"
-                Content="Rocket League"/>
+                Content="Rocket League"
+                Command="{Binding MatchDetailCommand}"
+                CommandParameter="Rocket League"/>
         <Button Grid.Row="2" 
                 Width="200"
                 Height="75"
                 Margin="0 50 0 0"
-                Content="Valorant"/>
+                Content="Valorant"
+                Command="{Binding MatchDetailCommand}"
+                CommandParameter="Valorant"/>
         <Button Grid.Row="3" 
                 Width="200"
                 Height="75"
                 Margin="0 50 0 0"
-                Content="Overwatch"/>
+                Content="Overwatch"
+                Command="{Binding MatchDetailCommand}"
+                CommandParameter="Overwatch"/>
         <Button Grid.Row="4" 
                 Width="200"
                 Height="75"
                 Margin="0 50 0 0"
-                Content="League Of Legends"/>
+                Content="League Of Legends"
+                Command="{Binding MatchDetailCommand}"
+                CommandParameter="League Of Legends"/>
     </Grid>
 </UserControl>

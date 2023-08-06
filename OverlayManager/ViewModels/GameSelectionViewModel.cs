@@ -1,26 +1,29 @@
-﻿using System;
+﻿using OverlayManager.Commands;
+using OverlayManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace OverlayManager.ViewModels
 {
     public class GameSelectionViewModel : ViewModelBase
     {
-		private string game;
-		public string Game
+		private readonly Match _match;
+
+		public ICommand MatchDetailCommand { get; }
+
+        public GameSelectionViewModel(Match match, Services.NavigationService matchDetailNavigationService)
 		{
-			get
-			{
-				return game;
-			}
-			set
-			{
-				game = value;
-				OnPropertyChanged(nameof(Game));
-			}
-		}
+			_match = match;
+			
+			MatchDetailCommand = new SelectGameCommand(this, _match, matchDetailNavigationService);
+        }
+
+
 	}
 }
 //changes game selection

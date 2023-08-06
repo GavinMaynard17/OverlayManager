@@ -16,22 +16,23 @@
                     Margin="0 20"
                     Orientation="Horizontal">
             <TextBlock FontSize="20" 
-                       Text="Team 1: "/>
-            <Button Margin="10 0" Padding="5" Content="-"/>
-            <TextBlock FontSize="20" Text="0"/>
-            <Button Margin="10 0" Padding="5" Content="+"/>
+                       Text="{Binding Team1Name}"/>
+            <Button Margin="10 0" Padding="5" Content="-" Command="{Binding UpdateScoreCommand}" CommandParameter="t1m"/>
+            <TextBlock FontSize="20" Text="{Binding Team1Score, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Margin="10 0" Padding="5" Content="+" Command="{Binding UpdateScoreCommand}" CommandParameter="t1p"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" 
                     Margin="0 20"
                     Orientation="Horizontal">
             <TextBlock FontSize="20" 
-                       Text="Team 2: "/>
-            <Button Margin="10 0" Padding="5" Content="-"/>
-            <TextBlock FontSize="20" Text="0"/>
-            <Button Margin="10 0" Padding="5" Content="+"/>
+                       Text="{Binding Team2Name}"/>
+            <Button Margin="10 0" Padding="5" Content="-" Command="{Binding UpdateScoreCommand}" CommandParameter="t2m"/>
+            <TextBlock FontSize="20" Text="{Binding Team2Score, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Margin="10 0" Padding="5" Content="+" Command="{Binding UpdateScoreCommand}" CommandParameter="t2p"/>
         </StackPanel>
         <Button Width="150"
                 Padding="7"
-                Content="End Game"/>
+                Content="End Game"
+                Command="{Binding EndGameCommand}"/>
     </StackPanel>
 </UserControl>

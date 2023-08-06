@@ -3,11 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OverlayManager" xmlns:views="clr-namespace:OverlayManager.Views"
+        xmlns:local="clr-namespace:OverlayManager" xmlns:views="clr-namespace:OverlayManager.Views" xmlns:vms="clr-namespace:OverlayManager.ViewModels"
         mc:Ignorable="d"
         Title="Overlay Manager" Height="750" Width="450"
         ResizeMode="NoResize">
     <Grid>
-        <views:MatchControlView/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:GameSelectionViewModel}">
+                <views:GameSelectionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:MatchDetailViewModel}">
+                <views:MatchDetailView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:MatchControlViewModel}">
+                <views:MatchControlView/>
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+        
     </Grid>
 </Window>

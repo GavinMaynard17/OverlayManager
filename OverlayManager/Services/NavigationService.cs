@@ -19,6 +19,7 @@ namespace OverlayManager.Services
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
         }
+        
         public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();
