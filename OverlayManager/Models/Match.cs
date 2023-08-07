@@ -12,6 +12,7 @@ namespace OverlayManager.Models
         public int SeriesLength { get; set; }
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
+        public bool hasWinner { get; set; }
 
         public Match()
         {
@@ -19,6 +20,7 @@ namespace OverlayManager.Models
             SeriesLength = 0;
             Team1 = new Team();
             Team2 = new Team();
+            hasWinner = false;
         }
 
         public void clearDetails()
@@ -27,6 +29,7 @@ namespace OverlayManager.Models
             SeriesLength = 0;
             Team1.clearDetails();
             Team2.clearDetails();
+            hasWinner = false;
         }
     }
 }

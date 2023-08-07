@@ -22,7 +22,7 @@ namespace OverlayManager.ViewModels
         public MatchDetailViewModel(Match match, Services.NavigationService matchControlNavigationService, Services.NavigationService gameSelectionNavigationService)
         {
             _match = match;
-            SubmitCommand = new NavigateCommand(matchControlNavigationService);//MatchDetailCommand(this, _match, matchControlNavigationService) use this for launching overlay?
+            SubmitCommand = new MatchDetailCommand(this, _match, matchControlNavigationService);// use this for launching overlay?
             CancelCommand = new ClearDetailsCommand(_match, gameSelectionNavigationService);
             SeriesLengthCommand = new SeriesLengthCommand(this, _match);
         }
@@ -39,6 +39,7 @@ namespace OverlayManager.ViewModels
         {
             get
             {
+                if (_match.SeriesLength == 0) return "Select a series length";
                 return "Best of: " + _match.SeriesLength;
             }
             set

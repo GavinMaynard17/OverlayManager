@@ -12,6 +12,10 @@
                    FontSize="25" 
                    Text="Match Control"/>
 
+        <TextBlock HorizontalAlignment="Center"
+                   FontSize="20"
+                   Text="{Binding SeriesLength}"/>
+
         <StackPanel HorizontalAlignment="Center" 
                     Margin="0 20"
                     Orientation="Horizontal">

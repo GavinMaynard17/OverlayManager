@@ -39,6 +39,14 @@ namespace OverlayManager.ViewModels
             }
         }
 
+        public string SeriesLength
+        {
+            get
+            {
+                return "Best of: " + _match.SeriesLength;
+            }
+        }
+
         public string Team1Score
         {
             get
@@ -47,11 +55,10 @@ namespace OverlayManager.ViewModels
             }
             set
             {
-                if (_match.Team1.Score != int.Parse(value))
-                {
-                    _match.Team1.Score = int.Parse(value);
-                    OnPropertyChanged(nameof(Team1Score));
-                }
+                
+                _match.Team1.Score = int.Parse(value);
+                OnPropertyChanged(nameof(Team1Score));
+                
             }
         }
 
@@ -63,11 +70,10 @@ namespace OverlayManager.ViewModels
             }
             set
             {
-                if (_match.Team2.Score != int.Parse(value))
-                {
-                    _match.Team2.Score = int.Parse(value);
-                    OnPropertyChanged(nameof(Team2Score));
-                }
+                
+                _match.Team2.Score = int.Parse(value);
+                OnPropertyChanged(nameof(Team2Score));
+                
             }
         }
 
