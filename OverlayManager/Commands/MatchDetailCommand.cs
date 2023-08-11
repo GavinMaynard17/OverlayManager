@@ -1,12 +1,22 @@
-﻿using OverlayManager.Models;
+﻿using OverlayManager.LeagueOfLegendsOverlay.ViewModels;
+using OverlayManager.LeagueOfLegendsOverlay.Views;
+using OverlayManager.Models;
+using OverlayManager.OverwatchOverlay.ViewModels;
+using OverlayManager.OverwatchOverlay.Views;
+using OverlayManager.RocketLeagueOverlay.ViewModels;
+using OverlayManager.RocketLeagueOverlay.Views;
 using OverlayManager.Services;
+using OverlayManager.ValorantOverlay.ViewModels;
+using OverlayManager.ValorantOverlay.Views;
 using OverlayManager.ViewModels;
 using Reservoom.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Printing;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OverlayManager.Commands
@@ -17,7 +27,9 @@ namespace OverlayManager.Commands
         private readonly Match _match;
         private readonly NavigationService _matchControlNavigationService;
 
-        public MatchDetailCommand(MatchDetailViewModel matchDetailViewModel, Match match, NavigationService matchControlNavigationService)
+        public MatchDetailCommand(MatchDetailViewModel matchDetailViewModel,
+            Match match,
+            NavigationService matchControlNavigationService)
         {
             _matchDetailViewModel = matchDetailViewModel;
             _match = match;
@@ -33,9 +45,45 @@ namespace OverlayManager.Commands
                 base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter)
+        public override async void Execute(object? parameter)
         {
             //launch an overlay
+
+            switch (_match.Game) 
+            {
+                case "Rocket League":
+                    RocketLeagueViewModel rocketLeagueViewModel = new RocketLeagueViewModel();
+                    RocketLeagueView rocketLeagueView = new RocketLeagueView();
+                    rocketLeagueView.DataContext = rocketLeagueViewModel;
+                    
+                    rocketLeagueView.Show();                    
+                    break;
+
+                case "Valorant":
+                    ValorantViewModel valorantViewModel = new ValorantViewModel();
+                    ValorantView valorantView = new ValorantView();
+                    valorantView.DataContext = valorantViewModel;
+
+                    valorantView.Show();
+                    break;
+
+                case "Overwatch":
+                    OverwatchViewModel overwatchViewModel = new OverwatchViewModel();
+                    OverwatchView overwatchView = new OverwatchView();
+                    overwatchView.DataContext = overwatchViewModel;
+
+                    overwatchView.Show();
+                    break;
+
+                case "League Of Legends":
+                    LeagueOfLegendsViewModel leagueOfLegendsViewModel = new LeagueOfLegendsViewModel();
+                    LeagueOfLegendsView leagueOfLegendsView = new LeagueOfLegendsView();
+                    leagueOfLegendsView.DataContext = leagueOfLegendsViewModel;
+
+                    leagueOfLegendsView.Show();
+                    break;
+            }
+
             _matchControlNavigationService.Navigate();
         }
 

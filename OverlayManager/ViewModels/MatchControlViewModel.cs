@@ -3,6 +3,7 @@ using OverlayManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,16 +12,35 @@ namespace OverlayManager.ViewModels
 {
     public class MatchControlViewModel : ViewModelBase
     {
-        private Match _match;
+        private readonly Match _match;
+        private const string ServerIpAddress = "127.0.0.1";
+        private const int ServerPort = 2209;
+        private TcpClient _client;
 
         public ICommand EndGameCommand { get; }
         public ICommand UpdateScoreCommand { get;  }
 
-        public MatchControlViewModel(Match match, Services.NavigationService gameSelectionNavigationService)
+        public MatchControlViewModel(Match match,
+            Services.NavigationService gameSelectionNavigationService)
         {
             _match = match;
-            EndGameCommand = new ClearDetailsCommand(_match, gameSelectionNavigationService);
-            UpdateScoreCommand = new UpdateScoreCommand(_match, this);
+            _client = new TcpClient();
+            ConnectToServer();
+            EndGameCommand = new EndGameCommand(_match,
+                _client,
+                gameSelectionNavigationService);
+            UpdateScoreCommand = new UpdateScoreCommand(_match,
+                _client,
+                this);
+        }
+
+        private void ConnectToServer()
+        {
+            _client.Connect(ServerIpAddress, ServerPort);
+            string message = "Hello from Overlay Manager!";
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            NetworkStream stream = _client.GetStream();
+            stream.Write(data, 0, data.Length);
         }
 
         public string Team1Name

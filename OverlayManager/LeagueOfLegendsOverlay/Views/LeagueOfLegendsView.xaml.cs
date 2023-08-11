@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OverlayManager
+namespace OverlayManager.LeagueOfLegendsOverlay.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LeagueOfLegendsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LeagueOfLegendsView : Window
     {
-        public MainWindow()
+        public LeagueOfLegendsView()
         {
             InitializeComponent();
-
-            Closing += MainWindow_Closing;
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

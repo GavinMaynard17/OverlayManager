@@ -4,6 +4,7 @@ using Reservoom.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,18 +14,22 @@ namespace OverlayManager.Commands
     public class UpdateScoreCommand : CommandBase
     {
         private readonly Match _match;
+        private TcpClient _client;
         private readonly MatchControlViewModel _matchControlViewModel;
 
-        public UpdateScoreCommand(Match match, MatchControlViewModel matchControlViewModel)
+        public UpdateScoreCommand(Match match,
+            TcpClient client,
+            MatchControlViewModel matchControlViewModel)
         {
             _match = match;
+            _client = client;
             _matchControlViewModel = matchControlViewModel;
         }
         public override void Execute(object? parameter)
         {
-            if (parameter is string data)
+            if (parameter is string res)
             {
-                switch (data)
+                switch (res)
                 {
                     case "t1m":
                         if (_match.Team1.Score > 0 && !_match.hasWinner)
@@ -110,6 +115,12 @@ namespace OverlayManager.Commands
                         }
                         break;
                 }
+
+                //instead of sending res, need to send JSON of all match details
+                string message = res;
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                NetworkStream stream = _client.GetStream();
+                stream.Write(data, 0, data.Length);
             }
         }
     }

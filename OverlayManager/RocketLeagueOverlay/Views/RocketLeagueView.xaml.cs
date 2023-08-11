@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverlayManager.RocketLeagueOverlay.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,26 +11,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OverlayManager
+namespace OverlayManager.RocketLeagueOverlay.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RocketLeagueView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RocketLeagueView : Window
     {
-        public MainWindow()
+        public RocketLeagueView()
         {
             InitializeComponent();
-
-            Closing += MainWindow_Closing;
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

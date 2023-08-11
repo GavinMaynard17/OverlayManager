@@ -40,17 +40,21 @@ namespace OverlayManager
 
         private GameSelectionViewModel CreateGameSelectionViewModel()
         {
-            return new GameSelectionViewModel(_match, new Services.NavigationService(_navigationStore, CreateMatchDetailViewModel));
+            return new GameSelectionViewModel(_match,
+                new Services.NavigationService(_navigationStore, CreateMatchDetailViewModel));
         }
 
         private MatchDetailViewModel CreateMatchDetailViewModel()
         {
-            return new MatchDetailViewModel(_match, new Services.NavigationService(_navigationStore, CreateMatchControlViewModel), new Services.NavigationService(_navigationStore, CreateGameSelectionViewModel));
+            return new MatchDetailViewModel(_match,
+                new Services.NavigationService(_navigationStore, CreateMatchControlViewModel), 
+                new Services.NavigationService(_navigationStore, CreateGameSelectionViewModel));
         }
 
         private MatchControlViewModel CreateMatchControlViewModel()
         {
-            return new MatchControlViewModel(_match, new Services.NavigationService(_navigationStore, CreateGameSelectionViewModel));
+            return new MatchControlViewModel(_match, 
+                new Services.NavigationService(_navigationStore, CreateGameSelectionViewModel));
         }
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace OverlayManager.ViewModels
@@ -19,12 +20,15 @@ namespace OverlayManager.ViewModels
         public ICommand SeriesLengthCommand { get; }
 
 
-        public MatchDetailViewModel(Match match, Services.NavigationService matchControlNavigationService, Services.NavigationService gameSelectionNavigationService)
+        public MatchDetailViewModel(Match match,
+            Services.NavigationService matchControlNavigationService,
+            Services.NavigationService gameSelectionNavigationService)
         {
             _match = match;
-            SubmitCommand = new MatchDetailCommand(this, _match, matchControlNavigationService);// use this for launching overlay?
+            SubmitCommand = new MatchDetailCommand(this, _match, matchControlNavigationService);
             CancelCommand = new ClearDetailsCommand(_match, gameSelectionNavigationService);
             SeriesLengthCommand = new SeriesLengthCommand(this, _match);
+            System.Diagnostics.Debug.WriteLine(Application.Current.Windows.Count);
         }
 
         public string GameSelected
@@ -82,37 +86,6 @@ namespace OverlayManager.ViewModels
             }
         }
 
-        //public string MT1N
-        //{
-        //    get
-        //    {
-        //        return "Team 1 Name: " + _match.Team1Name;
-        //    }
-        //    set
-        //    {
-        //        if (_match.Team1Name != value)
-        //        {
-        //            _match.Team1Name = value;
-        //            OnPropertyChanged(nameof(Team1Name));
-        //        }
-        //    }
-        //}
-
-        //public string MT2N
-        //{
-        //    get
-        //    {
-        //        return "Team 2 Name: " + _match.Team2Name;
-        //    }
-        //    set
-        //    {
-        //        if (_match.Team2Name != value)
-        //        {
-        //            _match.Team2Name = value;
-        //            OnPropertyChanged(nameof(Team2Name));
-        //        }
-        //    }
-        //}
     }
 }
 //propchange SL, t1n, t2n

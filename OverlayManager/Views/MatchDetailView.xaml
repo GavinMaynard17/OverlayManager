@@ -95,7 +95,5 @@
                     Content="Cancel"
                     Command="{Binding CancelCommand}"/>
         </StackPanel>
-        <TextBlock Text="{Binding MT1N, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Text="{Binding MT2N, UpdateSourceTrigger=PropertyChanged}"/>
     </StackPanel>
 </UserControl>
