@@ -10,6 +10,8 @@ namespace OverlayManager.Models
     {
         public string Game { get; set; }
         public int SeriesLength { get; set; }
+        public int gameNum { get; set; }
+        public int winScore { get; set; }
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
         public bool hasWinner { get; set; }
@@ -18,6 +20,8 @@ namespace OverlayManager.Models
         {
             Game = "";
             SeriesLength = 0;
+            gameNum = 1;
+            winScore = SeriesLength / 2 + 1;
             Team1 = new Team();
             Team2 = new Team();
             hasWinner = false;
@@ -27,6 +31,7 @@ namespace OverlayManager.Models
         {
             Game = "Unknown";
             SeriesLength = 0;
+            gameNum = 1;
             Team1.clearDetails();
             Team2.clearDetails();
             hasWinner = false;

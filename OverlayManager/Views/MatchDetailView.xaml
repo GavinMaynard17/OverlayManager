@@ -9,7 +9,7 @@
     <StackPanel>
         <TextBlock HorizontalAlignment="Center" 
                    FontSize="24"
-                   Margin="0 50 0 0"
+                   Margin="0 20 0 0"
                    Text="Game Details"/>
         <TextBlock HorizontalAlignment="Center"
                    FontSize="22"
@@ -55,7 +55,11 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition Height="100"/>
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" 
@@ -70,22 +74,60 @@
                      Grid.Column="1"
                      Text="{Binding Team1Name, UpdateSourceTrigger=PropertyChanged}"/>
 
+            <TextBlock Grid.Row="2"
+                       Margin="0 10 0 0"
+                       Text="Logo: "/>
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Padding="5 2"
+                    Margin="0 10 0 0"
+                    HorizontalAlignment="Left"
+                    Content="Select Image"
+                    Command="{Binding SelectLogoCommand}"
+                    CommandParameter="Team1"/>
 
-            <TextBlock Grid.Row="2" 
+            <Image Grid.Row="3"
+                   Grid.Column="1"
+                   
+                   Source="{Binding Team1Logo, UpdateSourceTrigger=PropertyChanged}"
+                   MaxHeight="90"/>
+
+            <TextBlock Grid.Row="4" 
                        Margin="0 15 0 10"
                        FontSize="15" 
                        Text="Team 2"/>
 
-            <TextBlock Grid.Row="3"
+            <TextBlock Grid.Row="5"
                        Text="Name:"/>
+            
+            <TextBlock Grid.Row="6"
+                       Margin="0 10 0 0"
+                       Text="Logo: "/>
+            <Button Grid.Row="6"
+                    Grid.Column="1"
+                    Padding="5 2"
+                    Margin="0 10 0 0"
+                    HorizontalAlignment="Left"
+                    Content="Select Image"
+                    Command="{Binding SelectLogoCommand}"
+                    CommandParameter="Team2"/>
+            
+            <Image Grid.Row="7"
+                   Grid.Column="1"
+                   Source="{Binding Team2Logo, UpdateSourceTrigger=PropertyChanged}"
+                   MaxHeight="90"/>
 
-            <TextBox Grid.Row="3"
+            <TextBox Grid.Row="5"
                      Grid.Column="1"
                      Text="{Binding Team2Name, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
+
+
         <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="25">
             <Button Margin="5 0" 
                     Padding="5" 
                     Content="Submit"

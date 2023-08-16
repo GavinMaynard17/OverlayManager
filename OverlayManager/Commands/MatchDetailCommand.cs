@@ -13,11 +13,15 @@ using Reservoom.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Printing;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OverlayManager.Commands
 {
@@ -26,6 +30,7 @@ namespace OverlayManager.Commands
         private readonly MatchDetailViewModel _matchDetailViewModel;
         private readonly Match _match;
         private readonly NavigationService _matchControlNavigationService;
+        
 
         public MatchDetailCommand(MatchDetailViewModel matchDetailViewModel,
             Match match,
@@ -55,7 +60,6 @@ namespace OverlayManager.Commands
                     RocketLeagueViewModel rocketLeagueViewModel = new RocketLeagueViewModel();
                     RocketLeagueView rocketLeagueView = new RocketLeagueView();
                     rocketLeagueView.DataContext = rocketLeagueViewModel;
-                    
                     rocketLeagueView.Show();                    
                     break;
 
@@ -83,6 +87,8 @@ namespace OverlayManager.Commands
                     leagueOfLegendsView.Show();
                     break;
             }
+
+            
 
             _matchControlNavigationService.Navigate();
         }

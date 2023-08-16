@@ -1,4 +1,5 @@
-﻿using OverlayManager.Commands;
+﻿using Newtonsoft.Json;
+using OverlayManager.Commands;
 using OverlayManager.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace OverlayManager.ViewModels
 {
@@ -37,8 +39,8 @@ namespace OverlayManager.ViewModels
         private void ConnectToServer()
         {
             _client.Connect(ServerIpAddress, ServerPort);
-            string message = "Hello from Overlay Manager!";
-            byte[] data = Encoding.UTF8.GetBytes(message);
+            string serializedMatch = JsonConvert.SerializeObject(_match);
+            byte[] data = Encoding.UTF8.GetBytes(serializedMatch);
             NetworkStream stream = _client.GetStream();
             stream.Write(data, 0, data.Length);
         }
@@ -50,6 +52,7 @@ namespace OverlayManager.ViewModels
                 return _match.Team1.Name;
             }
         }
+
 
         public string Team2Name
         {

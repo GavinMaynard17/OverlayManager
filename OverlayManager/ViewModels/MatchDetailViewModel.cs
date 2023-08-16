@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace OverlayManager.ViewModels
 {
@@ -18,6 +19,7 @@ namespace OverlayManager.ViewModels
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand SeriesLengthCommand { get; }
+        public ICommand SelectLogoCommand { get; }
 
 
         public MatchDetailViewModel(Match match,
@@ -28,7 +30,7 @@ namespace OverlayManager.ViewModels
             SubmitCommand = new MatchDetailCommand(this, _match, matchControlNavigationService);
             CancelCommand = new ClearDetailsCommand(_match, gameSelectionNavigationService);
             SeriesLengthCommand = new SeriesLengthCommand(this, _match);
-            System.Diagnostics.Debug.WriteLine(Application.Current.Windows.Count);
+            SelectLogoCommand = new SelectLogoCommand(this, _match);
         }
 
         public string GameSelected
@@ -51,6 +53,7 @@ namespace OverlayManager.ViewModels
                 if (_match.SeriesLength != int.Parse(value))
                 {
                     _match.SeriesLength = int.Parse(value);
+                    _match.winScore = _match.SeriesLength / 2 + 1;
                     OnPropertyChanged(nameof(SeriesLength));
                 }
             }
@@ -71,6 +74,20 @@ namespace OverlayManager.ViewModels
             }
         }
 
+        private BitmapImage _team1Logo;
+        public BitmapImage Team1Logo
+        {
+            get
+            {
+                return _team1Logo;
+            }
+            set
+            {
+                _team1Logo = value;
+                OnPropertyChanged(nameof(Team1Logo));
+            }
+        }
+
         private string _team2Name;
         public string Team2Name
         {
@@ -83,6 +100,20 @@ namespace OverlayManager.ViewModels
                 _team2Name = value;
                 _match.Team2.Name = value;
                 OnPropertyChanged(nameof(Team2Name));
+            }
+        }
+
+        private BitmapImage _team2Logo;
+        public BitmapImage Team2Logo
+        {
+            get
+            {
+                return _team2Logo;
+            }
+            set
+            {
+                _team2Logo = value;
+                OnPropertyChanged(nameof(Team2Logo));
             }
         }
 

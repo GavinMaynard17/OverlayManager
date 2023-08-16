@@ -5,14 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverlayManager.RocketLeagueOverlay.Views"
         mc:Ignorable="d"
-        Title="RocketLeagueView" Height="1080" Width="1920"
+        Title="Overlay" Height="1080" Width="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="CenterScreen" Topmost="True">
+        WindowStartupLocation="Manual" Top="-1079" Topmost="True">
+
     <Grid>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="50"
-                   Foreground="white"
-                   Text="Rocket League"/>
+        
+        <!-- if you want to make any of these a more custom shape,
+             feel free to add more points/completely redo the points-->
+
+        <Polygon x:Name="Team1NameBackground" Points="372,13 784,13 783,14 782,16 781,21 787,80 788,83 790,85 372,85" StrokeThickness="4" Stroke="Black" Fill="black"/>
+
+        <Polygon x:Name="Team1LogoBackground" Points="300,13 372,13 372,85 300,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
+
+        <Polygon x:Name="Team1ScoreBackground" Points="700,88 870,88 870,120 700,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray"/>
+
+        <Polygon x:Name="Team2NameBackground" Points="1137,13 1621,13 1621,85 1132,85 1133,83 1134,80 1140,21 1139,16 1138,14 " StrokeThickness="4" Stroke="Black" Fill="black"/>
+
+        <Polygon x:Name="Team2LogoBackground" Points="1549,13 1621,13 1621,85 1549,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
+
+        <Polygon x:Name="Team2ScoreBackground" Points="1050,88 1370,88 1370,120 1050,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray"/>
+        
+        <Polygon x:Name="GameNumberBackground" Points="866,88 930,87 935,85 986,85 991,87 1053,88 1045,130 875,130" StrokeThickness="4" Stroke="Black" Fill="black"/>
+      
+        <!--Team 1 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}"  Margin="0 0 1070 875"><!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team1Score, UpdateSourceTrigger=PropertyChanged}"  Margin="0 0 1070 875"><!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="Blue"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 1 Score End-->
+
+        <!--Team 2 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}" Margin="1075 0 0 870"><!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="60" Height="20" Margin="5" BorderBrush="White" BorderThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team2Score}" Margin="1075 0 0 870"><!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="60" Height="20" Margin="5" BorderBrush="White" BorderThickness="2" Background="orange"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 2 Score End-->
+
+        <Border Name="Team1NameTextBox" Width="400"
+                Height="60"
+                Margin="0 0 760 980"><!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="Team1Name" HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0 0 25 0"
+                        FontSize="45"
+                        Foreground="White"
+                        Text="{Binding Team1Name}"/>
+        </Border>
+
+        <Border x:Name="Team2NameTextBox" Width="400"
+                Height="60"
+                Margin="760 0 0 980"><!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="Team2Name" HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="45"
+                        Foreground="White"
+                        Text="{Binding Team2Name}"/> 
+        </Border>
+
+        <Border x:Name="BestOfTextBox"
+                Width="160"
+                Height="45"
+                Margin="0 0 0 865"><!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="BestOfText"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="{Binding GameNum}"/><!-- Ex. "Game 1 best of 5" -->
+        </Border>
+
+        <Image x:Name="Team1Logo" Source="{Binding Team1Logo, UpdateSourceTrigger=PropertyChanged}" 
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               MaxHeight="70"
+               MaxWidth="70"
+               Margin="0 0 1250 980"/>
+
+        <Image x:Name="Team2Logo" Source="{Binding Team2Logo, UpdateSourceTrigger=PropertyChanged}" 
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               MaxHeight="70"
+               MaxWidth="70"
+               Margin="1250 0 0 980"/>
     </Grid>
 </Window>
