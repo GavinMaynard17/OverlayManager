@@ -89,6 +89,20 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             if (_match.Team2.Logo != "")
                 Team2Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team2.Logo)));
 
+            if (_match.winScore > 1)
+            {
+                TextBoxHeight = "42";
+                SeriesBoxColor = "Black";
+                SeriesVisibility = "Visible";
+            }
+
+            else
+            {
+                TextBoxHeight = "62";
+                SeriesBoxColor = "DarkGray";
+                SeriesVisibility = "Hidden";
+            }
+
         }
 
         private string team1Name;
@@ -96,7 +110,7 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
         {
             get
             {
-                return team1Name + ": ";
+                return team1Name;
             }
             set
             {
@@ -121,7 +135,7 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
         {
             get
             {
-                return team2Name + ": ";
+                return team2Name;
             }
             set
             {
@@ -173,7 +187,7 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
         {
             get
             {
-                return "Game " + gameNum + " of " + _match.SeriesLength + "Score to win: " + _match.winScore;
+                return "Game " + gameNum + " best of " + _match.SeriesLength;
             }
             set
             {
@@ -195,6 +209,48 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
                 OnPropertyChanged(nameof(WinScore));
             }
 
+        }
+
+        private string textBoxHeight;
+        public string TextBoxHeight
+        {
+            get
+            {
+                return textBoxHeight;
+            }
+            set
+            {
+                textBoxHeight = value;
+                OnPropertyChanged(nameof(TextBoxHeight));
+            }
+        }
+
+        private string seriesBoxColor;
+        public string SeriesBoxColor
+        {
+            get
+            {
+                return seriesBoxColor;
+            }
+            set
+            {
+                seriesBoxColor = value;
+                OnPropertyChanged(nameof(SeriesBoxColor));
+            }
+        }
+
+        private string seriesVisibility;
+        public string SeriesVisibility
+        {
+            get
+            {
+                return seriesVisibility;
+            }
+            set
+            {
+                seriesVisibility = value;
+                OnPropertyChanged(nameof(SeriesVisibility));
+            }
         }
     }
 }

@@ -25,6 +25,13 @@
             <TextBlock FontSize="20" Text="{Binding Team1Score, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Margin="10 0" Padding="5" Content="+" Command="{Binding UpdateScoreCommand}" CommandParameter="t1p"/>
         </StackPanel>
+
+        <Button Margin="0 15"
+                Width="100"
+                Height="25"
+                Content="Switch Sides"
+                Command="{Binding SwitchSidesCommand}"/>
+
         <StackPanel HorizontalAlignment="Center" 
                     Margin="0 20"
                     Orientation="Horizontal">

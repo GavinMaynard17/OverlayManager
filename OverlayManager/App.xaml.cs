@@ -41,7 +41,14 @@ namespace OverlayManager
         private GameSelectionViewModel CreateGameSelectionViewModel()
         {
             return new GameSelectionViewModel(_match,
-                new Services.NavigationService(_navigationStore, CreateMatchDetailViewModel));
+                new Services.NavigationService(_navigationStore, CreateMatchDetailViewModel),
+                new Services.NavigationService(_navigationStore, CreateCasterListViewModel));
+        }
+
+        private ViewModelBase CreateCasterListViewModel()
+        {
+            return new CasterListViewModel(_match,
+                new Services.NavigationService(_navigationStore, CreateGameSelectionViewModel));
         }
 
         private MatchDetailViewModel CreateMatchDetailViewModel()

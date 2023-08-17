@@ -1,7 +1,6 @@
 ﻿using OverlayManager.Models;
 using OverlayManager.Services;
 using OverlayManager.ViewModels;
-using Reservoom.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;

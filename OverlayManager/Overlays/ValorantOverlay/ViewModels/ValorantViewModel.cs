@@ -1,36 +1,30 @@
-﻿
-using OverlayManager.RocketLeagueOverlay.Views;
-using OverlayManager.ViewModels;
+﻿using OverlayManager.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using System.Security.Principal;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json;
 using OverlayManager.Models;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Media.Imaging;
 
-namespace OverlayManager.RocketLeagueOverlay.ViewModels
+namespace OverlayManager.ValorantOverlay.ViewModels
 {
-    public class RocketLeagueViewModel : ViewModelBase
+    public class ValorantViewModel : ViewModelBase
     {
         private const int Port = 2209;
         private TcpListener _server;
         Match _match;
 
-        public RocketLeagueViewModel()
+        public ValorantViewModel()
         {
             _match = new Match();
             StartServer();
-            
         }
 
         private void StartServer()
@@ -40,10 +34,10 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                
+
                 TcpClient client = _server.AcceptTcpClient();
                 ThreadPool.QueueUserWorkItem(HandleClient, client);
-                
+
             });
         }
 
@@ -64,11 +58,11 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                         break;
 
                     }
-                    
+
                     Match match = JsonConvert.DeserializeObject<Match>(message);
                     _match = match;
                     updateUI();
-                    
+
                 }
 
                 stream.Close();
@@ -76,17 +70,13 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                 _server.Stop();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    foreach (Window window in Application.Current.Windows)
-                    {
-                        if(window.Title == "Overlay") window.Close();
-                    }
+                    Application.Current.Windows[2].Close();
                 });
             }
         }
 
         private void updateUI()
         {
-            
             Team1Name = _match.Team1.Name;
             Team2Name = _match.Team2.Name;
             Team1Score = new ObservableCollection<object>(new object[_match.Team1.Score]);
@@ -94,10 +84,29 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
             GameNum = _match.gameNum.ToString();
             WinScore = new ObservableCollection<object>(new object[_match.winScore]);
 
-            if(_match.Team1.Logo != "") 
+            if (_match.Team1.Logo != "")
                 Team1Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team1.Logo)));
             if (_match.Team2.Logo != "")
                 Team2Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team2.Logo)));
+
+            if (_match.winScore > 1) 
+            {
+                TextBox1Margin = "0 0 430 848";
+                TextBox2Margin = "430 0 0 848";
+                TextBoxHeight = "50";
+                SeriesBoxColor = "DarkGray";
+                SeriesVisibility = "Visible";
+            }
+
+            else
+            {
+                TextBox1Margin = "0 0 430 828";
+                TextBox2Margin = "430 0 0 828";
+                TextBoxHeight = "70";
+                SeriesBoxColor = "Black";
+                SeriesVisibility = "Hidden";
+            }
+                
 
 
         }
@@ -140,7 +149,6 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                 OnPropertyChanged(nameof(Team2Name));
             }
         }
-
         private BitmapImage _team2Logo;
         public BitmapImage Team2Logo
         {
@@ -151,6 +159,7 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                 OnPropertyChanged(nameof(Team2Logo));
             }
         }
+
 
         private ObservableCollection<object> team1Score;
         public ObservableCollection<object> Team1Score
@@ -206,7 +215,77 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                 winScore = value;
                 OnPropertyChanged(nameof(WinScore));
             }
-            
+
+        }
+
+        private string textBox1Margin;
+        public string TextBox1Margin
+        {
+            get
+            {
+                return textBox1Margin;
+            }
+            set
+            {
+                textBox1Margin = value;
+                OnPropertyChanged(nameof(TextBox1Margin));
+            }
+        }
+
+        private string textBox2Margin;
+        public string TextBox2Margin
+        {
+            get
+            {
+                return textBox2Margin;
+            }
+            set
+            {
+                textBox2Margin = value;
+                OnPropertyChanged(nameof(TextBox2Margin));
+            }
+        }
+
+        private string textBoxHeight;
+        public string TextBoxHeight
+        {
+            get
+            {
+                return textBoxHeight;
+            }
+            set
+            {
+                textBoxHeight = value;
+                OnPropertyChanged(nameof(TextBoxHeight));
+            }
+        }
+
+        private string seriesBoxColor;
+        public string SeriesBoxColor
+        {
+            get
+            {
+                return seriesBoxColor;
+            }
+            set
+            {
+                seriesBoxColor = value;
+                OnPropertyChanged(nameof(SeriesBoxColor));
+            }
+        }
+
+        private string seriesVisibility;
+        public string SeriesVisibility
+        {
+            get
+            {
+                return seriesVisibility;
+            }
+            set
+            {
+                seriesVisibility = value;
+                OnPropertyChanged(nameof(SeriesVisibility));
+            }
         }
     }
 }

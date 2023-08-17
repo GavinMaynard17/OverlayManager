@@ -20,7 +20,8 @@ namespace OverlayManager.ViewModels
         private TcpClient _client;
 
         public ICommand EndGameCommand { get; }
-        public ICommand UpdateScoreCommand { get;  }
+        public ICommand UpdateScoreCommand { get; }
+        public ICommand SwitchSidesCommand { get; }
 
         public MatchControlViewModel(Match match,
             Services.NavigationService gameSelectionNavigationService)
@@ -34,6 +35,9 @@ namespace OverlayManager.ViewModels
             UpdateScoreCommand = new UpdateScoreCommand(_match,
                 _client,
                 this);
+            SwitchSidesCommand = new SwitchSidesCommand(_match,
+                _client,
+                this);
         }
 
         private void ConnectToServer()
@@ -45,11 +49,16 @@ namespace OverlayManager.ViewModels
             stream.Write(data, 0, data.Length);
         }
 
+        private string team1Name;
         public string Team1Name
         {
             get
             {
                 return _match.Team1.Name;
+            }
+            set
+            {
+                OnPropertyChanged(nameof(Team1Name));
             }
         }
 
@@ -59,6 +68,10 @@ namespace OverlayManager.ViewModels
             get
             {
                 return _match.Team2.Name;
+            }
+            set
+            {
+                OnPropertyChanged(nameof(Team2Name));
             }
         }
 

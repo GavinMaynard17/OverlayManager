@@ -1,30 +1,36 @@
-﻿using OverlayManager.ViewModels;
+﻿
+using OverlayManager.RocketLeagueOverlay.Views;
+using OverlayManager.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using OverlayManager.Models;
 using Newtonsoft.Json;
+using OverlayManager.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Media.Imaging;
 
-namespace OverlayManager.ValorantOverlay.ViewModels
+namespace OverlayManager.RocketLeagueOverlay.ViewModels
 {
-    public class ValorantViewModel : ViewModelBase
+    public class RocketLeagueViewModel : ViewModelBase
     {
         private const int Port = 2209;
         private TcpListener _server;
         Match _match;
 
-        public ValorantViewModel()
+        public RocketLeagueViewModel()
         {
             _match = new Match();
             StartServer();
+            
         }
 
         private void StartServer()
@@ -34,10 +40,10 @@ namespace OverlayManager.ValorantOverlay.ViewModels
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
-
+                
                 TcpClient client = _server.AcceptTcpClient();
                 ThreadPool.QueueUserWorkItem(HandleClient, client);
-
+                
             });
         }
 
@@ -58,11 +64,11 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                         break;
 
                     }
-
+                    
                     Match match = JsonConvert.DeserializeObject<Match>(message);
                     _match = match;
                     updateUI();
-
+                    
                 }
 
                 stream.Close();
@@ -70,13 +76,17 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 _server.Stop();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Application.Current.Windows[2].Close();
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if(window.Title == "Overlay") window.Close();
+                    }
                 });
             }
         }
 
         private void updateUI()
         {
+            
             Team1Name = _match.Team1.Name;
             Team2Name = _match.Team2.Name;
             Team1Score = new ObservableCollection<object>(new object[_match.Team1.Score]);
@@ -84,10 +94,17 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             GameNum = _match.gameNum.ToString();
             WinScore = new ObservableCollection<object>(new object[_match.winScore]);
 
-            if (_match.Team1.Logo != "")
+            if(_match.Team1.Logo != "") 
                 Team1Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team1.Logo)));
             if (_match.Team2.Logo != "")
                 Team2Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team2.Logo)));
+
+            if (_match.winScore > 1)
+                SeriesVisibility = "Visible";
+            
+            else
+                SeriesVisibility = "Hidden";
+            
 
         }
 
@@ -96,7 +113,7 @@ namespace OverlayManager.ValorantOverlay.ViewModels
         {
             get
             {
-                return team1Name + ": ";
+                return team1Name;
             }
             set
             {
@@ -121,7 +138,7 @@ namespace OverlayManager.ValorantOverlay.ViewModels
         {
             get
             {
-                return team2Name + ": ";
+                return team2Name;
             }
             set
             {
@@ -129,6 +146,7 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 OnPropertyChanged(nameof(Team2Name));
             }
         }
+
         private BitmapImage _team2Logo;
         public BitmapImage Team2Logo
         {
@@ -139,7 +157,6 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 OnPropertyChanged(nameof(Team2Logo));
             }
         }
-
 
         private ObservableCollection<object> team1Score;
         public ObservableCollection<object> Team1Score
@@ -174,7 +191,7 @@ namespace OverlayManager.ValorantOverlay.ViewModels
         {
             get
             {
-                return "Game " + gameNum + " of " + _match.SeriesLength + "Score to win: " + _match.winScore;
+                return "Game " + gameNum + " best of " + _match.SeriesLength;
             }
             set
             {
@@ -195,7 +212,76 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 winScore = value;
                 OnPropertyChanged(nameof(WinScore));
             }
+        }
 
+        private string textBox1Margin;
+        public string TextBox1Margin
+        {
+            get
+            {
+                return textBox1Margin;
+            }
+            set
+            {
+                textBox1Margin = value;
+                OnPropertyChanged(nameof(TextBox1Margin));
+            }
+        }
+
+        private string textBox2Margin;
+        public string TextBox2Margin
+        {
+            get
+            {
+                return textBox2Margin;
+            }
+            set
+            {
+                textBox2Margin = value;
+                OnPropertyChanged(nameof(TextBox2Margin));
+            }
+        }
+
+        private string textBoxHeight;
+        public string TextBoxHeight
+        {
+            get
+            {
+                return textBoxHeight;
+            }
+            set
+            {
+                textBoxHeight = value;
+                OnPropertyChanged(nameof(TextBoxHeight));
+            }
+        }
+
+        private string seriesBoxColor;
+        public string SeriesBoxColor
+        {
+            get
+            {
+                return seriesBoxColor;
+            }
+            set
+            {
+                seriesBoxColor = value;
+                OnPropertyChanged(nameof(SeriesBoxColor));
+            }
+        }
+
+        private string seriesVisibility;
+        public string SeriesVisibility
+        {
+            get
+            {
+                return seriesVisibility;
+            }
+            set
+            {
+                seriesVisibility = value;
+                OnPropertyChanged(nameof(SeriesVisibility));
+            }
         }
     }
 }

@@ -15,12 +15,14 @@ namespace OverlayManager.ViewModels
 		private readonly Match _match;
 
 		public ICommand MatchDetailCommand { get; }
+		public ICommand CastersCommand { get; }
 
-        public GameSelectionViewModel(Match match, Services.NavigationService matchDetailNavigationService)
+        public GameSelectionViewModel(Match match, Services.NavigationService matchDetailNavigationService, Services.NavigationService casterListNavigationService)
 		{
 			_match = match;
 			
 			MatchDetailCommand = new SelectGameCommand(this, _match, matchDetailNavigationService);
+			CastersCommand = new NavigateCommand(casterListNavigationService);
         }
 
 

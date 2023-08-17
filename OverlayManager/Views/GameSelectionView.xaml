@@ -13,6 +13,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -52,5 +53,12 @@
                 Content="League Of Legends"
                 Command="{Binding MatchDetailCommand}"
                 CommandParameter="League Of Legends"/>
+
+        <Button Grid.Row="5"
+                Width="90"
+                Height="30"
+                Margin="250 40 0 0"
+                Content="Set up casters"
+                Command="{Binding CastersCommand}"/>
     </Grid>
 </UserControl>

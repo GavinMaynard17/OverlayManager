@@ -12,6 +12,9 @@
             <DataTemplate DataType="{x:Type vms:GameSelectionViewModel}">
                 <views:GameSelectionView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CasterListViewModel}">
+                <views:CasterListView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:MatchDetailViewModel}">
                 <views:MatchDetailView/>
             </DataTemplate>

@@ -18,19 +18,19 @@
 
         <Polygon x:Name="Team1LogoBackground" Points="300,13 372,13 372,85 300,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
 
-        <Polygon x:Name="Team1ScoreBackground" Points="700,88 870,88 870,120 700,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray"/>
+        <Polygon x:Name="Team1ScoreBackground" Points="700,88 870,88 870,120 700,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray" Visibility="{Binding SeriesVisibility}"/>
 
         <Polygon x:Name="Team2NameBackground" Points="1137,13 1621,13 1621,85 1132,85 1133,83 1134,80 1140,21 1139,16 1138,14 " StrokeThickness="4" Stroke="Black" Fill="black"/>
 
         <Polygon x:Name="Team2LogoBackground" Points="1549,13 1621,13 1621,85 1549,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
 
-        <Polygon x:Name="Team2ScoreBackground" Points="1050,88 1370,88 1370,120 1050,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray"/>
+        <Polygon x:Name="Team2ScoreBackground" Points="1050,88 1370,88 1370,120 1050,120" StrokeThickness="4" Stroke="DarkGray" Fill="DarkGray" Visibility="{Binding SeriesVisibility}"/>
         
         <Polygon x:Name="GameNumberBackground" Points="866,88 930,87 935,85 986,85 991,87 1053,88 1045,130 875,130" StrokeThickness="4" Stroke="Black" Fill="black"/>
       
         <!--Team 1 Score Start-->
         <!-- Empty Score Cells -->
-        <ItemsControl ItemsSource="{Binding WinScore}"  Margin="0 0 1070 875"><!-- change this margin to move the whole thing -->
+        <ItemsControl ItemsSource="{Binding WinScore}"  Margin="0 0 1070 875" Visibility="{Binding SeriesVisibility}"><!-- change this margin to move the whole thing -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2"/>
@@ -43,7 +43,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <!-- Filled Score Cells -->
-        <ItemsControl ItemsSource="{Binding Team1Score, UpdateSourceTrigger=PropertyChanged}"  Margin="0 0 1070 875"><!-- change this margin to match empty cells' margin -->
+        <ItemsControl ItemsSource="{Binding Team1Score}" Margin="0 0 1070 875" Visibility="{Binding SeriesVisibility}"><!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="Blue"/>
@@ -59,7 +59,7 @@
 
         <!--Team 2 Score Start-->
         <!-- Empty Score Cells -->
-        <ItemsControl ItemsSource="{Binding WinScore}" Margin="1075 0 0 870"><!-- change this margin to move the whole thing -->
+        <ItemsControl ItemsSource="{Binding WinScore}" Margin="1075 0 0 870" Visibility="{Binding SeriesVisibility}"><!-- change this margin to move the whole thing -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border Width="60" Height="20" Margin="5" BorderBrush="White" BorderThickness="2"/>
@@ -72,7 +72,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <!-- Filled Score Cells -->
-        <ItemsControl ItemsSource="{Binding Team2Score}" Margin="1075 0 0 870"><!-- change this margin to match empty cells' margin -->
+        <ItemsControl ItemsSource="{Binding Team2Score}" Margin="1075 0 0 870" Visibility="{Binding SeriesVisibility}"><!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border Width="60" Height="20" Margin="5" BorderBrush="White" BorderThickness="2" Background="orange"/>

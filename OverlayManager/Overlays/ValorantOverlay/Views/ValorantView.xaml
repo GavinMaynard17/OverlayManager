@@ -1,0 +1,137 @@
+﻿<Window x:Class="OverlayManager.ValorantOverlay.Views.ValorantView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverlayManager.ValorantOverlay.Views"
+        mc:Ignorable="d"
+        Title="Overlay" Height="1080" Width="1920"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="Manual" Top="-1079">
+    <Grid>
+
+        <Polygon Points="620,140 620,93 825,93 825,125 813,140"  StrokeThickness="2" Stroke="Black" Fill="Black"/>
+
+        <Polygon Points="670,160 670,142 810,142 796,160" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+
+        <Polygon Points="1093,125 1093,93 1298,93 1298,140 1105,140"  StrokeThickness="2" Stroke="Black" Fill="Black"/>
+
+        <Polygon Points="1249,160 1249,142 1106,142 1120,160" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+
+        <!--Team 1 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}" Margin="690 0 0 778" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team1Score}" Margin="690 0 0 778" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="Blue"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 1 Score End-->
+
+        <!--Team 2 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}" Margin="0 0 690 778" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team2Score}" Margin="0 0 690 778" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="Orange"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 2 Score End-->
+
+
+        <Border Margin="{Binding TextBox1Margin}"
+                Width="150"
+                Height="{Binding TextBoxHeight}">
+            <TextBlock x:Name="Team1Name" HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Foreground="White"
+                        Text="{Binding Team1Name}"/>
+        </Border>
+
+        <Border Margin="{Binding TextBox2Margin}"
+                Width="150"
+                Height="{Binding TextBoxHeight}">
+            <TextBlock x:Name="Team2Name" HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Foreground="White"
+                        Text="{Binding Team2Name}"/>
+        </Border>
+
+        <Border Margin="0 0 653 826"
+                Width="70"
+                Height="70"
+                Background="White">
+            <Image Source="{Binding Team1Logo}"
+                   MaxHeight="70"
+                   MaxWidth="70"/>
+        </Border>
+
+        <Border Margin="652 0 0 826"
+                Width="70"
+                Height="70"
+                Background="White">
+            <Image Source="{Binding Team2Logo}"
+                   MaxHeight="70"
+                   MaxWidth="70"/>
+        </Border>
+
+        <Border x:Name="BestOfTextBox"
+                VerticalAlignment="Bottom"
+                Width="250"
+                Height="45"
+                Margin="0 0 1500 100">
+            <!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="BestOfText"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="25"
+                       Foreground="White"
+                       Opacity=".8"
+                       Text="{Binding GameNum}"/>
+        </Border>
+    </Grid>
+</Window>
