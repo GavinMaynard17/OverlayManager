@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using OverlayManager.Models;
 using Newtonsoft.Json;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
 {
@@ -70,7 +71,10 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
                 _server.Stop();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Application.Current.Windows[2].Close();
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.Title == "Overlay") window.Close();
+                    }
                 });
             }
         }
@@ -91,16 +95,20 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
 
             if (_match.winScore > 1)
             {
-                TextBoxHeight = "42";
-                SeriesBoxColor = "Black";
-                SeriesVisibility = "Visible";
+                Application.Current.Dispatcher.Invoke(() => {
+                    TextBoxHeight = 42;
+                    SeriesBoxColor = new SolidColorBrush(Colors.Black);
+                    SeriesVisibility = Visibility.Visible;
+                });
             }
 
             else
             {
-                TextBoxHeight = "62";
-                SeriesBoxColor = "DarkGray";
-                SeriesVisibility = "Hidden";
+                Application.Current.Dispatcher.Invoke(() => {
+                    TextBoxHeight = 62;
+                    SeriesBoxColor = new SolidColorBrush(Colors.DarkGray);
+                    SeriesVisibility = Visibility.Hidden;
+                });
             }
 
         }
@@ -211,8 +219,8 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
 
         }
 
-        private string textBoxHeight;
-        public string TextBoxHeight
+        private int textBoxHeight;
+        public int TextBoxHeight
         {
             get
             {
@@ -225,8 +233,8 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             }
         }
 
-        private string seriesBoxColor;
-        public string SeriesBoxColor
+        private SolidColorBrush seriesBoxColor;
+        public SolidColorBrush SeriesBoxColor
         {
             get
             {
@@ -239,17 +247,17 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             }
         }
 
-        private string seriesVisibility;
-        public string SeriesVisibility
+        private Visibility _seriesVisibility;
+        public Visibility SeriesVisibility
         {
-            get
-            {
-                return seriesVisibility;
-            }
+            get { return _seriesVisibility; }
             set
             {
-                seriesVisibility = value;
-                OnPropertyChanged(nameof(SeriesVisibility));
+                if (_seriesVisibility != value)
+                {
+                    _seriesVisibility = value;
+                    OnPropertyChanged("SeriesVisibility");
+                }
             }
         }
     }

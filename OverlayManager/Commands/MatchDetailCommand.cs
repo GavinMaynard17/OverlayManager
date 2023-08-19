@@ -1,6 +1,8 @@
 ﻿using OverlayManager.LeagueOfLegendsOverlay.ViewModels;
 using OverlayManager.LeagueOfLegendsOverlay.Views;
 using OverlayManager.Models;
+using OverlayManager.Overlays.CasterOverlay.ViewModels;
+using OverlayManager.Overlays.CasterOverlay.Views;
 using OverlayManager.OverwatchOverlay.ViewModels;
 using OverlayManager.OverwatchOverlay.Views;
 using OverlayManager.RocketLeagueOverlay.ViewModels;
@@ -87,7 +89,11 @@ namespace OverlayManager.Commands
                     break;
             }
 
-            
+            CasterViewModel casterViewModel = new CasterViewModel();
+            CasterView casterView = new CasterView();
+            casterView.DataContext = casterViewModel;
+
+            casterView.Show();
 
             _matchControlNavigationService.Navigate();
         }

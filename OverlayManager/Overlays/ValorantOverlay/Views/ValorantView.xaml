@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Overlay" Height="1080" Width="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="Manual" Top="-1079">
+        WindowStartupLocation="Manual" Top="1079" ShowInTaskbar="False">
     <Grid>
 
         <Polygon Points="620,140 620,93 825,93 825,125 813,140"  StrokeThickness="2" Stroke="Black" Fill="Black"/>

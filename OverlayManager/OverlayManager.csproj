@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ApplicationIcon>OM.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="OM.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Overlays\RocketLeagueOverlay\Commands\" />

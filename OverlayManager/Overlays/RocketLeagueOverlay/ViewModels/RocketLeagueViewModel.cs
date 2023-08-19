@@ -17,6 +17,7 @@ using OverlayManager.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace OverlayManager.RocketLeagueOverlay.ViewModels
 {
@@ -100,12 +101,74 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
                 Team2Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team2.Logo)));
 
             if (_match.winScore > 1)
-                SeriesVisibility = "Visible";
-            
+                SeriesVisibility = Visibility.Visible;
             else
-                SeriesVisibility = "Hidden";
-            
+                SeriesVisibility = Visibility.Hidden;
 
+            
+            switch (_match.winScore)
+            {
+                case 1:
+                    break;
+                case 2:
+                    Application.Current.Dispatcher.Invoke(() => {
+                        Team1ScorePoints = new PointCollection()
+                        {
+                            new Point(750, 88),
+                            new Point(870, 88),
+                            new Point(870, 120),
+                            new Point(760, 120)
+                        };
+
+                        Team2ScorePoints = new PointCollection()
+                        {
+                            new Point(1050, 88),
+                            new Point(1170, 88),
+                            new Point(1160, 120),
+                            new Point(1050, 120)
+                        };
+                    });
+                    break;
+                case 3:
+                    Application.Current.Dispatcher.Invoke(() => {
+                        Team1ScorePoints = new PointCollection()
+                        {
+                            new Point(715, 88),
+                            new Point(870, 88),
+                            new Point(870, 120),
+                            new Point(725, 120)
+                        };
+
+                        Team2ScorePoints = new PointCollection()
+                        {
+                            new Point(1050, 88),
+                            new Point(1205, 88),
+                            new Point(1195, 120),
+                            new Point(1050, 120)
+                        };
+                    });
+                    break;
+                case 4:
+                    Application.Current.Dispatcher.Invoke(() => {
+                        Team1ScorePoints = new PointCollection()
+                        {
+                            new Point(680, 88),
+                            new Point(870, 88),
+                            new Point(870, 120),
+                            new Point(690, 120)
+                        };
+
+                        Team2ScorePoints = new PointCollection()
+                        {
+                            new Point(1050, 88),
+                            new Point(1240, 88),
+                            new Point(1230, 120),
+                            new Point(1050, 120)
+                        };
+                    });
+                    break;
+            }
+            
         }
 
         private string team1Name;
@@ -214,73 +277,45 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
             }
         }
 
-        private string textBox1Margin;
-        public string TextBox1Margin
+        private Visibility _seriesVisibility;
+        public Visibility SeriesVisibility
         {
-            get
-            {
-                return textBox1Margin;
-            }
+            get { return _seriesVisibility; }
             set
             {
-                textBox1Margin = value;
-                OnPropertyChanged(nameof(TextBox1Margin));
+                if (_seriesVisibility != value)
+                {
+                    _seriesVisibility = value;
+                    OnPropertyChanged("SeriesVisibility");
+                }
             }
         }
 
-        private string textBox2Margin;
-        public string TextBox2Margin
+        private PointCollection team1ScorePoints = new PointCollection();
+        public PointCollection Team1ScorePoints
         {
             get
             {
-                return textBox2Margin;
+                return team1ScorePoints;
             }
             set
             {
-                textBox2Margin = value;
-                OnPropertyChanged(nameof(TextBox2Margin));
+                team1ScorePoints = value;
+                OnPropertyChanged(nameof(Team1ScorePoints));
             }
         }
 
-        private string textBoxHeight;
-        public string TextBoxHeight
+        private PointCollection team2ScorePoints = new PointCollection();
+        public PointCollection Team2ScorePoints
         {
             get
             {
-                return textBoxHeight;
+                return team2ScorePoints;
             }
             set
             {
-                textBoxHeight = value;
-                OnPropertyChanged(nameof(TextBoxHeight));
-            }
-        }
-
-        private string seriesBoxColor;
-        public string SeriesBoxColor
-        {
-            get
-            {
-                return seriesBoxColor;
-            }
-            set
-            {
-                seriesBoxColor = value;
-                OnPropertyChanged(nameof(SeriesBoxColor));
-            }
-        }
-
-        private string seriesVisibility;
-        public string SeriesVisibility
-        {
-            get
-            {
-                return seriesVisibility;
-            }
-            set
-            {
-                seriesVisibility = value;
-                OnPropertyChanged(nameof(SeriesVisibility));
+                team2ScorePoints = value;
+                OnPropertyChanged(nameof(Team2ScorePoints));
             }
         }
     }

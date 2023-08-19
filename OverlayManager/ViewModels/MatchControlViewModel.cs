@@ -16,8 +16,10 @@ namespace OverlayManager.ViewModels
     {
         private readonly Match _match;
         private const string ServerIpAddress = "127.0.0.1";
-        private const int ServerPort = 2209;
-        private TcpClient _client;
+        private const int MatchPort = 2209;
+        private const int CasterPort = 2210;
+        private TcpClient _matchClient;
+        private TcpClient _casterClient;
 
         public ICommand EndGameCommand { get; }
         public ICommand UpdateScoreCommand { get; }
@@ -27,29 +29,36 @@ namespace OverlayManager.ViewModels
             Services.NavigationService gameSelectionNavigationService)
         {
             _match = match;
-            _client = new TcpClient();
-            ConnectToServer();
+            _matchClient = new TcpClient();
+            _casterClient = new TcpClient();
+            ConnectToServers();
             EndGameCommand = new EndGameCommand(_match,
-                _client,
+                _matchClient,
+                _casterClient,
                 gameSelectionNavigationService);
             UpdateScoreCommand = new UpdateScoreCommand(_match,
-                _client,
+                _matchClient,
                 this);
             SwitchSidesCommand = new SwitchSidesCommand(_match,
-                _client,
+                _matchClient,
                 this);
         }
 
-        private void ConnectToServer()
+        private void ConnectToServers()
         {
-            _client.Connect(ServerIpAddress, ServerPort);
+            _matchClient.Connect(ServerIpAddress, MatchPort);
             string serializedMatch = JsonConvert.SerializeObject(_match);
             byte[] data = Encoding.UTF8.GetBytes(serializedMatch);
-            NetworkStream stream = _client.GetStream();
+            NetworkStream stream = _matchClient.GetStream();
+            stream.Write(data, 0, data.Length);
+
+            _casterClient.Connect(ServerIpAddress, CasterPort);
+            string serializedCasters = JsonConvert.SerializeObject(_match.Casters);
+            data = Encoding.UTF8.GetBytes(serializedCasters);
+            stream = _casterClient.GetStream();
             stream.Write(data, 0, data.Length);
         }
 
-        private string team1Name;
         public string Team1Name
         {
             get

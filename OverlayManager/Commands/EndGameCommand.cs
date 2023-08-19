@@ -14,14 +14,17 @@ namespace OverlayManager.Commands
     public class EndGameCommand : CommandBase
     {
         private readonly Match _match;
-        private TcpClient _client;
+        private TcpClient _matchClient;
+        private TcpClient _casterClient;
         private readonly NavigationService _selectGameNavigationService;
         public EndGameCommand(Match match,
-            TcpClient client,
+            TcpClient matchClient,
+            TcpClient casterClient,
             NavigationService selectGameNavigationService)
         {
             _match = match;
-            _client = client;
+            _matchClient = matchClient;
+            _casterClient = casterClient;
             _selectGameNavigationService = selectGameNavigationService;
         }
 
@@ -30,7 +33,10 @@ namespace OverlayManager.Commands
             //close the thing
             string message = "close";
             byte[] data = Encoding.UTF8.GetBytes(message);
-            NetworkStream stream = _client.GetStream();
+            NetworkStream stream = _matchClient.GetStream();
+            stream.Write(data, 0, data.Length);
+
+            stream = _casterClient.GetStream();
             stream.Write(data, 0, data.Length);
 
             _match.clearDetails();

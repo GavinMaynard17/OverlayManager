@@ -12,6 +12,7 @@ using OverlayManager.Models;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace OverlayManager.ValorantOverlay.ViewModels
 {
@@ -70,7 +71,10 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 _server.Stop();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Application.Current.Windows[2].Close();
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.Title == "Overlay") window.Close();
+                    }
                 });
             }
         }
@@ -91,21 +95,25 @@ namespace OverlayManager.ValorantOverlay.ViewModels
 
             if (_match.winScore > 1) 
             {
-                TextBox1Margin = "0 0 430 848";
-                TextBox2Margin = "430 0 0 848";
-                TextBoxHeight = "50";
-                SeriesBoxColor = "DarkGray";
-                SeriesVisibility = "Visible";
+                Application.Current.Dispatcher.Invoke(() => { 
+                    TextBox1Margin = new Thickness(0, 0, 430, 848);
+                    TextBox2Margin = new Thickness(430, 0, 0, 848);
+                    TextBoxHeight = 50;
+                    SeriesBoxColor = new SolidColorBrush(Colors.DarkGray);
+                    SeriesVisibility = Visibility.Visible;
+                });
             }
 
             else
             {
-                TextBox1Margin = "0 0 430 828";
-                TextBox2Margin = "430 0 0 828";
-                TextBoxHeight = "70";
-                SeriesBoxColor = "Black";
-                SeriesVisibility = "Hidden";
-            }
+                Application.Current.Dispatcher.Invoke(() => { 
+                    TextBox1Margin = new Thickness(0, 0, 430, 828);
+                    TextBox2Margin = new Thickness(430, 0, 0, 828);
+                    TextBoxHeight = 70;
+                    SeriesBoxColor = new SolidColorBrush(Colors.Black);
+                    SeriesVisibility = Visibility.Hidden;
+                });
+                }
                 
 
 
@@ -218,8 +226,8 @@ namespace OverlayManager.ValorantOverlay.ViewModels
 
         }
 
-        private string textBox1Margin;
-        public string TextBox1Margin
+        private Thickness textBox1Margin;
+        public Thickness TextBox1Margin
         {
             get
             {
@@ -232,8 +240,8 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             }
         }
 
-        private string textBox2Margin;
-        public string TextBox2Margin
+        private Thickness textBox2Margin;
+        public Thickness TextBox2Margin
         {
             get
             {
@@ -246,8 +254,8 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             }
         }
 
-        private string textBoxHeight;
-        public string TextBoxHeight
+        private int textBoxHeight;
+        public int TextBoxHeight
         {
             get
             {
@@ -260,8 +268,8 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             }
         }
 
-        private string seriesBoxColor;
-        public string SeriesBoxColor
+        private SolidColorBrush seriesBoxColor;
+        public SolidColorBrush SeriesBoxColor
         {
             get
             {
@@ -274,17 +282,17 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             }
         }
 
-        private string seriesVisibility;
-        public string SeriesVisibility
+        private Visibility _seriesVisibility;
+        public Visibility SeriesVisibility
         {
-            get
-            {
-                return seriesVisibility;
-            }
+            get { return _seriesVisibility; }
             set
             {
-                seriesVisibility = value;
-                OnPropertyChanged(nameof(SeriesVisibility));
+                if (_seriesVisibility != value)
+                {
+                    _seriesVisibility = value;
+                    OnPropertyChanged("SeriesVisibility");
+                }
             }
         }
     }

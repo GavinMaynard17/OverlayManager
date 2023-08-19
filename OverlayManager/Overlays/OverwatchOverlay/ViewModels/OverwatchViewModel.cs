@@ -70,7 +70,10 @@ namespace OverlayManager.OverwatchOverlay.ViewModels
                 _server.Stop();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Application.Current.Windows[2].Close();
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.Title == "Overlay") window.Close();
+                    }
                 });
             }
         }

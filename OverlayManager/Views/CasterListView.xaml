@@ -15,40 +15,58 @@
                 Margin="25"
                 Command="{Binding GoBackCommand}"/>
 
-        <Border Width="250" Height="100"
+        <Border Width="250" Height="auto" MinHeight="45"
                 BorderBrush="Black" BorderThickness="1">
             <ItemsControl ItemsSource="{Binding CasterList}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding Username}"/>
-                            <Button Content="Remove" Margin="15 0 0 0" Width="55" Height="20" Command="{Binding RemoveCasterCommand}" CommandParameter="{Binding Username}"/>
-                        </StackPanel>
+                        <Grid Height="45">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="55"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" Margin="5 0" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} @{1}">
+                                        <Binding Path="Name" />
+                                        <Binding Path="Username" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Button Grid.Column="1" Content="Remove"
+                                    Margin="0" Width="55" Height="20" 
+                                    VerticalAlignment="Center"
+                                    Command="{Binding DataContext.RemoveCasterCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                    CommandParameter="{Binding}"/>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Border>
-        
 
-        <StackPanel Orientation="Horizontal" Width="250" Margin="15">
-            <TextBlock Text="Name: "/>
+        <Grid HorizontalAlignment="Center" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       VerticalAlignment="Center" Text="Name: "/>
 
-            <TextBox Width="200"
+            <TextBox Grid.Row="0" Grid.Column="1" Width="200"
                  Height="20"
                  Text="{Binding CasterName, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Width="260" Margin="0 0 33 0">
-            <TextBlock Text="Username: "/>
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       VerticalAlignment="Center" Text="Username: "/>
 
-            <TextBox Width="200"
+            <TextBox Grid.Row="1" Grid.Column="1" Width="200"
                  Height="20"
                  Text="{Binding CasterUsername, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
-
-        
-        
+        </Grid>
 
         <Button Width="75"
                 Height="25"
