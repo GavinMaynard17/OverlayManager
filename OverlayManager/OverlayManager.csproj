@@ -30,10 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\Audiowide-en4g.ttf" />
-    <Resource Include="Fonts\CasanovaScotia-Xm0K.ttf" />
     <Resource Include="Fonts\NeusharpBold-7B8RV.otf" />
-    <Resource Include="Fonts\ProwlerRegular-ALMLg.ttf" />
   </ItemGroup>
 
 </Project>
