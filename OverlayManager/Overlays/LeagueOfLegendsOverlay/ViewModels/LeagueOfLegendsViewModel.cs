@@ -97,17 +97,53 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             {
                 Application.Current.Dispatcher.Invoke(() => {
                     TextBoxHeight = 42;
-                    SeriesBoxColor = new SolidColorBrush(Colors.Black);
                     SeriesVisibility = Visibility.Visible;
+
+                    Team1NamePoints = new PointCollection()
+                        {
+                            new Point(294, 0),
+                            new Point(465, 0),
+                            new Point(465, 43),
+                            new Point(294, 43)
+                        };
+                    Team2NamePoints = new PointCollection()
+                        {
+                            new Point(1467, 0),
+                            new Point(1635, 0),
+                            new Point(1635, 43),
+                            new Point(1467, 43)
+                        };
                 });
             }
 
             else
             {
-                Application.Current.Dispatcher.Invoke(() => {
-                    TextBoxHeight = 62;
-                    SeriesBoxColor = new SolidColorBrush(Colors.DarkGray);
+                Application.Current.Dispatcher.Invoke(() => { 
+                TextBoxHeight = 62;
                     SeriesVisibility = Visibility.Hidden;
+
+                    Team1NamePoints = new PointCollection()
+                        {
+                            new Point(294, 0),
+                            new Point(465, 0),
+                            new Point(465, 43),
+                            new Point(475, 46),
+                            new Point(479, 49),
+                            new Point(484, 54),
+                            new Point(487, 61.5),
+                            new Point(294, 61.5)
+                        };
+                    Team2NamePoints = new PointCollection()
+                        {
+                            new Point(1635, 0),
+                            new Point(1467, 0),
+                            new Point(1467, 43),
+                            new Point(1457, 46),
+                            new Point(1453, 49),
+                            new Point(1448, 54),
+                            new Point(1445, 61.5),
+                            new Point(1635, 61.5)
+                        };
                 });
             }
 
@@ -190,6 +226,34 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             }
         }
 
+        private PointCollection team1NamePoints = new PointCollection();
+        public PointCollection Team1NamePoints
+        {
+            get
+            {
+                return team1NamePoints;
+            }
+            set
+            {
+                team1NamePoints = value;
+                OnPropertyChanged(nameof(Team1NamePoints));
+            }
+        }
+
+        private PointCollection team2NamePoints = new PointCollection();
+        public PointCollection Team2NamePoints
+        {
+            get
+            {
+                return team2NamePoints;
+            }
+            set
+            {
+                team2NamePoints = value;
+                OnPropertyChanged(nameof(Team2NamePoints));
+            }
+        }
+
         private string gameNum;
         public string GameNum
         {
@@ -230,20 +294,6 @@ namespace OverlayManager.LeagueOfLegendsOverlay.ViewModels
             {
                 textBoxHeight = value;
                 OnPropertyChanged(nameof(TextBoxHeight));
-            }
-        }
-
-        private SolidColorBrush seriesBoxColor;
-        public SolidColorBrush SeriesBoxColor
-        {
-            get
-            {
-                return seriesBoxColor;
-            }
-            set
-            {
-                seriesBoxColor = value;
-                OnPropertyChanged(nameof(SeriesBoxColor));
             }
         }
 

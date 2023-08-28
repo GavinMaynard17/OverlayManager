@@ -6,17 +6,32 @@
         xmlns:local="clr-namespace:OverlayManager.ValorantOverlay.Views"
         mc:Ignorable="d"
         Title="Overlay" Height="1080" Width="1920"
+        MinHeight="1080" MinWidth="1920" MaxHeight="1080" MaxWidth="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" Top="1079" ShowInTaskbar="False">
     <Grid>
 
-        <Polygon Points="620,140 620,93 825,93 825,125 813,140"  StrokeThickness="2" Stroke="Black" Fill="Black"/>
+        <Polygon Points="{Binding Team1NamePoints}"  StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#222" Offset="0.0" />
+                    <GradientStop Color="#16B199" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
 
-        <Polygon Points="670,160 670,142 810,142 796,160" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+        <Polygon Points="669,161 669,140 813,140 796,161" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
-        <Polygon Points="1093,125 1093,93 1298,93 1298,140 1105,140"  StrokeThickness="2" Stroke="Black" Fill="Black"/>
+        <Polygon Points="{Binding Team2NamePoints}"  StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#FD4556" Offset="0.0" />
+                    <GradientStop Color="#222" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
 
-        <Polygon Points="1249,160 1249,142 1106,142 1120,160" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+        <Polygon Points="1250,161 1250,140 1105,140 1120,161" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
         <!--Team 1 Score Start-->
         <!-- Empty Score Cells -->
@@ -38,7 +53,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="Blue"/>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="#16B199"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -69,7 +84,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="Orange"/>
+                    <Ellipse Width="18" Height="18" Margin="15" Stroke="White" StrokeThickness="2" Fill="#FD4556"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -85,38 +100,42 @@
                 Width="150"
                 Height="{Binding TextBoxHeight}">
             <TextBlock x:Name="Team1Name" HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="40"
-                        Foreground="White"
-                        Text="{Binding Team1Name}"/>
+                       VerticalAlignment="Center"
+                       Margin="0 9 0 0"
+                       FontSize="40"
+                       FontFamily="{StaticResource AppFont}"    
+                       Foreground="White"
+                       Text="{Binding Team1Name}"/>
         </Border>
 
         <Border Margin="{Binding TextBox2Margin}"
                 Width="150"
                 Height="{Binding TextBoxHeight}">
             <TextBlock x:Name="Team2Name" HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="40"
-                        Foreground="White"
-                        Text="{Binding Team2Name}"/>
+                       VerticalAlignment="Center"
+                       Margin="0 9 0 0"
+                       FontSize="40"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding Team2Name}"/>
         </Border>
 
         <Border Margin="0 0 653 826"
                 Width="70"
                 Height="70"
-                Background="White">
+                Background="#222">
             <Image Source="{Binding Team1Logo}"
-                   MaxHeight="70"
-                   MaxWidth="70"/>
+                   MaxHeight="68"
+                   MaxWidth="68"/>
         </Border>
 
         <Border Margin="652 0 0 826"
                 Width="70"
                 Height="70"
-                Background="White">
+                Background="#222">
             <Image Source="{Binding Team2Logo}"
-                   MaxHeight="70"
-                   MaxWidth="70"/>
+                   MaxHeight="68"
+                   MaxWidth="68"/>
         </Border>
 
         <Border x:Name="BestOfTextBox"

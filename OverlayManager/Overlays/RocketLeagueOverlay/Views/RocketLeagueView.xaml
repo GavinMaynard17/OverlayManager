@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OverlayManager.RocketLeagueOverlay.Views"
         mc:Ignorable="d"
         Title="Overlay" Height="1080" Width="1920"
+        MinHeight="1080" MinWidth="1920" MaxHeight="1080" MaxWidth="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" Top="1079" ShowInTaskbar="False">
 
@@ -14,31 +15,32 @@
         <!-- if you want to make any of these a more custom shape,
              feel free to add more points/completely redo the points-->
 
-        <Polygon x:Name="Team1NameBackground" Points="372,13 784,13 783,14 782,16 781,21 787,80 788,83 790,85 372,85" StrokeThickness="4" Stroke="Black" Fill="black"/>
-
-        <Polygon x:Name="Team1LogoBackground" Points="300,13 372,13 372,85 300,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
-
-        <Polygon x:Name="Team1ScoreBackground" Points="{Binding Team1ScorePoints,UpdateSourceTrigger=PropertyChanged}" StrokeThickness="4" Stroke="DarkGray"  Visibility="{Binding SeriesVisibility}">
+        <Polygon x:Name="Team1NameBackground" Points="422,13 784,13 783,14 782,16 781,21 787,80 788,83 792,86 422,86" StrokeThickness="2" Stroke="Black" >
             <Polygon.Fill>
-                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
                     <GradientStop Color="#222" Offset="0.0" />
-                    <GradientStop Color="DarkGray" Offset="1.0" />
+                    <GradientStop Color="#386cf1" Offset="1" />
                 </LinearGradientBrush>
             </Polygon.Fill>
         </Polygon>
 
-        <Polygon x:Name="Team2NameBackground" Points="1137,13 1621,13 1621,85 1132,85 1133,83 1134,80 1140,21 1139,16 1138,14 " StrokeThickness="4" Stroke="Black" Fill="black"/>
+        <Polygon x:Name="Team1LogoBackground" Points="300,13 372,13 372,85 300,85" StrokeThickness="4" Stroke="black" Fill="Black"/>
 
-        <Polygon x:Name="Team2LogoBackground" Points="1549,13 1621,13 1621,85 1549,85" StrokeThickness="4" Stroke="Red" Fill="Red"/>
+        <Polygon x:Name="Team1ScoreBackground" Points="{Binding Team1ScorePoints}" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
-        <Polygon x:Name="Team2ScoreBackground" Points="{Binding Team2ScorePoints}" StrokeThickness="4" Stroke="DarkGray"  Visibility="{Binding SeriesVisibility}">
+        <Polygon x:Name="Team2NameBackground" Points="1137,13 1504,13 1504,85 1131,86 1133,83 1134,80 1140,21 1139,16 1138,14 " StrokeThickness="2" Stroke="Black">
             <Polygon.Fill>
-                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                    <GradientStop Color="DarkGray" Offset="0.0" />
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#ef823a" Offset="0" />
                     <GradientStop Color="#222" Offset="1.0" />
                 </LinearGradientBrush>
             </Polygon.Fill>
         </Polygon>
+
+
+        <Polygon x:Name="Team2LogoBackground" Points="1554,13 1626,13 1626,85 1554,85" StrokeThickness="4" Stroke="Black" Fill="Black"/>
+
+        <Polygon x:Name="Team2ScoreBackground" Points="{Binding Team2ScorePoints}" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
         <Polygon x:Name="GameNumberBackground" Points="866,88 930,87 935,85 986,85 991,87 1053,88 1045,130 875,130" StrokeThickness="4" Stroke="Black" Fill="black"/>
 
@@ -62,7 +64,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="Blue"/>
+                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="#386cf1"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -93,7 +95,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="Orange"/>
+                    <Ellipse Width="25" Height="25" Margin="5" Stroke="White" StrokeThickness="2" Fill="#ef823a"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -104,27 +106,30 @@
         </ItemsControl>
         <!--Team 2 Score End-->
 
-        <Border Name="Team1NameTextBox" Width="400"
+        <Border Name="Team1NameTextBox" Width="350"
                 Height="60"
-                Margin="0 0 760 980">
+                Margin="0 0 715 980">
             <!-- Do not change looks of this. This box is only to contain the TextBlock -->
             <TextBlock x:Name="Team1Name" HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="0 0 25 0"
-                        FontSize="45"
-                        Foreground="White"
-                        Text="{Binding Team1Name}"/>
+                       VerticalAlignment="Center"
+                       Margin="0 10 0 0"
+                       FontSize="50"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding Team1Name}"/>
         </Border>
 
-        <Border x:Name="Team2NameTextBox" Width="400"
+        <Border x:Name="Team2NameTextBox" Width="350"
                 Height="60"
-                Margin="760 0 0 980">
+                Margin="720 0 0 980">
             <!-- Do not change looks of this. This box is only to contain the TextBlock -->
             <TextBlock x:Name="Team2Name" HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="45"
-                        Foreground="White"
-                        Text="{Binding Team2Name}"/>
+                       VerticalAlignment="Center"
+                       Margin="0 10 0 0"
+                       FontSize="50"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding Team2Name}"/>
         </Border>
 
         <Border x:Name="BestOfTextBox"
@@ -133,10 +138,13 @@
                 Margin="0 0 0 865">
             <!-- Do not change looks of this. This box is only to contain the TextBlock -->
             <TextBlock x:Name="BestOfText"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="White"
-                        Text="{Binding GameNum}"/>
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="0 2 0 0"
+                       FontSize="17"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding GameNum}"/>
             <!-- Ex. "Game 1 best of 5" -->
         </Border>
 
@@ -144,12 +152,12 @@
                HorizontalAlignment="Center" VerticalAlignment="Center"
                MaxHeight="70"
                MaxWidth="70"
-               Margin="0 0 1250 980"/>
+               Margin="0 0 1248 982"/>
 
         <Image x:Name="Team2Logo" Source="{Binding Team2Logo, UpdateSourceTrigger=PropertyChanged}" 
                HorizontalAlignment="Center" VerticalAlignment="Center"
                MaxHeight="70"
                MaxWidth="70"
-               Margin="1250 0 0 980"/>
+               Margin="1260 0 0 982"/>
     </Grid>
 </Window>

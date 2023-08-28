@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Drawing.Text;
 
 namespace OverlayManager.RocketLeagueOverlay.ViewModels
 {
@@ -94,6 +95,7 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
             Team2Score = new ObservableCollection<object>(new object[_match.Team2.Score]);
             GameNum = _match.gameNum.ToString();
             WinScore = new ObservableCollection<object>(new object[_match.winScore]);
+
 
             if(_match.Team1.Logo != "") 
                 Team1Logo = Application.Current.Dispatcher.Invoke(() => new BitmapImage(new Uri(_match.Team1.Logo)));
@@ -254,7 +256,7 @@ namespace OverlayManager.RocketLeagueOverlay.ViewModels
         {
             get
             {
-                return "Game " + gameNum + " best of " + _match.SeriesLength;
+                return "Game " + gameNum + " | Best of " + _match.SeriesLength;
             }
             set
             {

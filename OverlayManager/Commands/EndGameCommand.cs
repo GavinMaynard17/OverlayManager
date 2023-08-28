@@ -5,19 +5,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace OverlayManager.Commands
 {
     public class EndGameCommand : CommandBase
     {
-        private readonly Match _match;
+        private readonly Models.Match _match;
         private TcpClient _matchClient;
         private TcpClient _casterClient;
         private readonly NavigationService _selectGameNavigationService;
-        public EndGameCommand(Match match,
+        public EndGameCommand(Models.Match match,
             TcpClient matchClient,
             TcpClient casterClient,
             NavigationService selectGameNavigationService)
@@ -42,5 +45,8 @@ namespace OverlayManager.Commands
             _match.clearDetails();
             _selectGameNavigationService.Navigate();
         }
+
     }
+    
 }
+

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OverlayManager.Overlays.CasterOverlay.Views"
         mc:Ignorable="d"
         Title="Caster Overlay" Height="1080" Width="1920"
+        MinHeight="1080" MinWidth="1920" MaxHeight="1080" MaxWidth="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" Top="1079" ShowInTaskbar="False">
     <Grid>
@@ -23,7 +24,7 @@
                         </Polygon>
 
                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 25" FontSize="35" FontWeight="Bold" Foreground="White"/>
-                        <TextBlock Text="{Binding Username, StringFormat=@{0}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 20" FontSize="15" Foreground="White"/>
+                        <TextBlock Text="{Binding Username, StringFormat=@{0}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 17" FontSize="20" Foreground="White"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

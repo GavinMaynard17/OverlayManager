@@ -69,7 +69,7 @@ namespace OverlayManager.ViewModels
             set
             {
                 _team1Name = value;
-                _match.Team1.Name = value;
+                _match.Team1.Name = value.ToUpper();
                 OnPropertyChanged(nameof(Team1Name));
             }
         }
@@ -98,7 +98,7 @@ namespace OverlayManager.ViewModels
             set
             {
                 _team2Name = value;
-                _match.Team2.Name = value;
+                _match.Team2.Name = value.ToUpper();
                 OnPropertyChanged(nameof(Team2Name));
             }
         }

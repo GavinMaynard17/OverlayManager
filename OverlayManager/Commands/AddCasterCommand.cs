@@ -30,8 +30,11 @@ namespace OverlayManager.Commands
 
         public override void Execute(object? parameter)
         {
-            _match.Casters.Add(new Caster(_casterListViewModel.CasterName, _casterListViewModel.CasterUsername));
 
+            if(_casterListViewModel.CasterUsername == null || _casterListViewModel.CasterUsername == "")
+                _match.Casters.Add(new Caster(_casterListViewModel.CasterName, "WKUeSports"));
+            else
+                _match.Casters.Add(new Caster(_casterListViewModel.CasterName, _casterListViewModel.CasterUsername));
             _casterListViewModel.CasterList = _match.Casters;
             _casterListViewModel.CasterName = "";
             _casterListViewModel.CasterUsername = "";

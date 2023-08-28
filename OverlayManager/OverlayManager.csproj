@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Audiowide-en4g.ttf" />
+    <None Remove="Fonts\CasanovaScotia-Xm0K.ttf" />
+    <None Remove="Fonts\NeusharpBold-7B8RV.otf" />
+    <None Remove="Fonts\ProwlerRegular-ALMLg.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="OM.ico" />
   </ItemGroup>
 
@@ -19,6 +26,14 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Audiowide-en4g.ttf" />
+    <Resource Include="Fonts\CasanovaScotia-Xm0K.ttf" />
+    <Resource Include="Fonts\NeusharpBold-7B8RV.otf" />
+    <Resource Include="Fonts\ProwlerRegular-ALMLg.ttf" />
   </ItemGroup>
 
 </Project>

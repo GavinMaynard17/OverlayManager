@@ -99,24 +99,54 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                     TextBox1Margin = new Thickness(0, 0, 430, 848);
                     TextBox2Margin = new Thickness(430, 0, 0, 848);
                     TextBoxHeight = 50;
-                    SeriesBoxColor = new SolidColorBrush(Colors.DarkGray);
+
                     SeriesVisibility = Visibility.Visible;
+
+                    Team1NamePoints = new PointCollection()
+                        {
+                            new Point(669, 140),
+                            new Point(669, 93),
+                            new Point(825, 93),
+                            new Point(825, 125),
+                            new Point(813, 140)
+                        };
+                    Team2NamePoints = new PointCollection()
+                        {
+                            new Point(1093, 125),
+                            new Point(1093, 93),
+                            new Point(1250, 93),
+                            new Point(1250, 140),
+                            new Point(1105, 140)
+                        };
                 });
             }
-
             else
             {
                 Application.Current.Dispatcher.Invoke(() => { 
                     TextBox1Margin = new Thickness(0, 0, 430, 828);
                     TextBox2Margin = new Thickness(430, 0, 0, 828);
                     TextBoxHeight = 70;
-                    SeriesBoxColor = new SolidColorBrush(Colors.Black);
+
                     SeriesVisibility = Visibility.Hidden;
+
+                    Team1NamePoints = new PointCollection()
+                        {
+                            new Point(669, 161),
+                            new Point(669, 93),
+                            new Point(825, 93),
+                            new Point(825, 125),
+                            new Point(796, 161)
+                        };
+                    Team2NamePoints = new PointCollection()
+                        {
+                            new Point(1093, 125),
+                            new Point(1093, 93),
+                            new Point(1250, 93),
+                            new Point(1250, 161),
+                            new Point(1120, 161)
+                        };
                 });
-                }
-                
-
-
+            }
         }
 
         private string team1Name;
@@ -182,6 +212,8 @@ namespace OverlayManager.ValorantOverlay.ViewModels
                 OnPropertyChanged(nameof(Team1Score));
             }
         }
+
+        
 
         private ObservableCollection<object> team2Score;
         public ObservableCollection<object> Team2Score
@@ -251,6 +283,34 @@ namespace OverlayManager.ValorantOverlay.ViewModels
             {
                 textBox2Margin = value;
                 OnPropertyChanged(nameof(TextBox2Margin));
+            }
+        }
+
+        private PointCollection team1NamePoints = new PointCollection();
+        public PointCollection Team1NamePoints
+        {
+            get
+            {
+                return team1NamePoints;
+            }
+            set
+            {
+                team1NamePoints = value;
+                OnPropertyChanged(nameof(Team1NamePoints));
+            }
+        }
+
+        private PointCollection team2NamePoints = new PointCollection();
+        public PointCollection Team2NamePoints
+        {
+            get
+            {
+                return team2NamePoints;
+            }
+            set
+            {
+                team2NamePoints = value;
+                OnPropertyChanged(nameof(Team2NamePoints));
             }
         }
 

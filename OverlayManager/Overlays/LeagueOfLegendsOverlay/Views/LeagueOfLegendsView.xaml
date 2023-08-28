@@ -6,17 +6,32 @@
         xmlns:local="clr-namespace:OverlayManager.LeagueOfLegendsOverlay.Views"
         mc:Ignorable="d"
         Title="Overlay" Height="1080" Width="1920"
+        MinHeight="1080" MinWidth="1920" MaxHeight="1080" MaxWidth="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" Top="1079" ShowInTaskbar="False">
     <Grid>
 
-        <Polygon Points="294,0 462,0 462,43 294,43" StrokeThickness="2" Stroke="DarkGray" Fill="DarkGray"/>
+        <Polygon Points="{Binding Team1NamePoints}" StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#222" Offset="0.0" />
+                    <GradientStop Color="#0099e0" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
 
-        <Polygon Points="294,43 462,43 470,45 474,47 478,50 481,54 484,57 486,62 294,62" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+        <Polygon Points="294,43 465,43 475,46 479,49 484,54 487,61.5 294,61.5" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
-        <Polygon Points="1467,0 1635,0 1635,43 1467,43" StrokeThickness="2" Stroke="DarkGray" Fill="DarkGray"/>
+        <Polygon Points="{Binding Team2NamePoints}" StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#e83d3d" Offset="0.0" />
+                    <GradientStop Color="#222" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
 
-        <Polygon Points="1635,43 1635,62 1445,62 1448,55 1450,51 1453,49 1458,46 1463,44 1467,43" StrokeThickness="2" Stroke="{Binding SeriesBoxColor}" Fill="{Binding SeriesBoxColor}"/>
+        <Polygon Points="1635,43 1635,61.5 1445,61.5 1448,54 1453,49 1457,46 1467,43" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
 
         <!--Team 1 Score Start-->
         <!-- Empty Score Cells -->
@@ -38,7 +53,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="18" Height="18" Margin="13" Stroke="White" StrokeThickness="2" Fill="Blue"/>
+                    <Ellipse Width="18" Height="18" Margin="13" Stroke="White" StrokeThickness="2" Fill="#0099e0"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -69,7 +84,7 @@
             <!-- change this margin to match empty cells' margin -->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Width="18" Height="18" Margin="13" Stroke="White" StrokeThickness="2" Fill="Orange"/>
+                    <Ellipse Width="18" Height="18" Margin="13" Stroke="White" StrokeThickness="2" Fill="#e83d3d"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
@@ -86,6 +101,8 @@
                 VerticalAlignment="Top"
                 Margin="292 0 0 0">
             <TextBlock FontSize="30"
+                       FontFamily="{StaticResource AppFont}"
+                       Margin="0 6 0 0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="White" 
@@ -96,9 +113,10 @@
                 Height="{Binding TextBoxHeight}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="0 0 284 0"
-                Background="DarkGray">
+                Margin="0 0 284 0">
             <TextBlock FontSize="30"
+                       FontFamily="{StaticResource AppFont}"
+                       Margin="0 6 0 0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="White" 
@@ -111,8 +129,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="231 0 0 0"
-                Background="LightGray">
-           <Image Source="{Binding Team1Logo}" MaxHeight="62" MaxWidth="62"/> 
+                Background="black">
+           <Image Source="{Binding Team1Logo}" MaxHeight="60" MaxWidth="60"/> 
         </Border>
 
         <Border Width="62"
@@ -120,8 +138,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0 0 222 0"
-                Background="LightGray">
-            <Image Source="{Binding Team2Logo}" MaxHeight="62" MaxWidth="62"/>
+                Background="Black">
+            <Image Source="{Binding Team2Logo}" MaxHeight="60" MaxWidth="60"/>
         </Border>
 
     </Grid>

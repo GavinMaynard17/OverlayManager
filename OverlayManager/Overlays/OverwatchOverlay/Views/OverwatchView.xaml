@@ -6,13 +6,134 @@
         xmlns:local="clr-namespace:OverlayManager.OverwatchOverlay.Views"
         mc:Ignorable="d"
         Title="Overlay" Height="1080" Width="1920"
+        MinHeight="1080" MinWidth="1920" MaxHeight="1080" MaxWidth="1920"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="Manual" Top="1079" Left="0" ShowInTaskbar="False">
     <Grid>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="50"
-                   Foreground="white"
-                   Text="Overwatch"/>
+        <Polygon Points="216,5 568,5 568,65 216,65" StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#222" Offset="0.0" />
+                    <GradientStop Color="#726ff2" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
+
+        <Polygon Points="1351,5 1703,5 1703,65 1351,65" StrokeThickness="2" Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,0">
+                    <GradientStop Color="#dd6379" Offset="0.0" />
+                    <GradientStop Color="#222" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
+        
+        <!--
+
+        <Polygon Points="600,5 650,05 650,65 600,65" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
+
+        <Polygon Points="1269,5 1319,5 1319,65 1269,65" StrokeThickness="2" Stroke="Black" Fill="#222" Visibility="{Binding SeriesVisibility}"/>
+-->
+
+        <!--Team 1 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}"  Margin="{Binding ScoreBox1Margin}" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="35" Height="12" Margin="3" BorderBrush="White" BorderThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team1Score}" Margin="{Binding ScoreBox1Margin}" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="35" Height="12" Margin="3" BorderBrush="White" BorderThickness="2" Background="Gold"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 1 Score End-->
+
+        <!--Team 2 Score Start-->
+        <!-- Empty Score Cells -->
+        <ItemsControl ItemsSource="{Binding WinScore}"  Margin="{Binding ScoreBox2Margin}" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to move the whole thing -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="35" Height="12" Margin="3" BorderBrush="White" BorderThickness="2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!-- Filled Score Cells -->
+        <ItemsControl ItemsSource="{Binding Team2Score}" Margin="{Binding ScoreBox2Margin}" Visibility="{Binding SeriesVisibility}">
+            <!-- change this margin to match empty cells' margin -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="35" Height="12" Margin="3" BorderBrush="White" BorderThickness="2" Background="Gold"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--Team 2 Score End-->
+
+        <Border Name="Team1NameTextBox" Width="{Binding TextBoxWidth}"
+                Height="58"
+                Margin="{Binding TextBox1Margin}">
+            <!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="Team1Name" HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0 10 0 0"
+                       FontSize="50"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding Team1Name}"/>
+        </Border>
+
+        <Border x:Name="Team2NameTextBox" Width="{Binding TextBoxWidth}"
+                Height="58"
+                Margin="{Binding TextBox2Margin}">
+            <!-- Do not change looks of this. This box is only to contain the TextBlock -->
+            <TextBlock x:Name="Team2Name" HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0 10 0 0"
+                       FontSize="50"
+                       FontFamily="{StaticResource AppFont}"
+                       Foreground="White"
+                       Text="{Binding Team2Name}"/>
+        </Border>
+
+        <Image x:Name="Team1Logo" Source="{Binding Team1Logo}" 
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               MaxHeight="58"
+               MaxWidth="58"
+               Margin="0 0 1400 1010"/>
+
+        <Image x:Name="Team2Logo" Source="{Binding Team2Logo}" 
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               MaxHeight="58"
+               MaxWidth="58"
+               Margin="1400 0 0 1010"/>
+
     </Grid>
 </Window>
